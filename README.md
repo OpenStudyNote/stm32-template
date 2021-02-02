@@ -12,23 +12,25 @@
 6. 定时器timer
 7. DHT11 温湿度传感器
 8. ADC采集
-9.WWDG IWDG 窗口看门狗 独立看门狗
-10.机智云配网 使用timer3 usart3 配置
-11 .syn6288 语音播报
-12.其他(后续更新)
+9. WWDG IWDG 窗口看门狗 独立看门狗
+10. 机智云配网 使用timer3 usart3 配置
+11. syn6288 语音播报
+12. 其他(后续更新)
 ![STM32F103ZET6](https://images.gitee.com/uploads/images/2021/0202/202844_72e1616d_5632238.png "STF103实物图.png")
 
 ### STM32F407ZGT6
-1.基本GPIO端口移植 板载LED驱动
-2.ILI9341驱动的2.8TFTLCD驱动移植
-3.其他(后续更新)
+1. 基本GPIO端口移植 板载LED驱动
+2. ILI9341驱动的2.8TFTLCD驱动移植
+3. 其他(后续更新)
+
 ![STM32F407ZGT6](https://images.gitee.com/uploads/images/2021/0202/202904_90b7d02d_5632238.png "STF407实物图.png")
 
 ### CSDN:
-(STM32F1案例 ST7735 TFT液晶显示屏综合库使用)[https://blog.csdn.net/weixin_43599390/article/details/109522136]
-(STM32F1案例 基本定时器(TIM6/7)与通用定时器(TIM2/3/4/5)使用)[https://blog.csdn.net/weixin_43599390/article/details/109589193]
-(野火F1开发板STM32案例 0.96 oled综合库使用)[https://blog.csdn.net/weixin_43599390/article/details/108950596]
-(STM32F1案例 串口USART库使用)[https://blog.csdn.net/weixin_43599390/article/details/109624584]
+1. (STM32F1案例 ST7735 TFT液晶显示屏综合库使用)[https://blog.csdn.net/weixin_43599390/article/details/109522136]
+2. (STM32F1案例 基本定时器(TIM6/7)与通用定时器(TIM2/3/4/5)使用)[https://blog.csdn.net/weixin_43599390/article/details/109589193]
+3. (野火F1开发板STM32案例 0.96 oled综合库使用)[https://blog.csdn.net/weixin_43599390/article/details/108950596]
+4. (STM32F1案例 串口USART库使用)[https://blog.csdn.net/weixin_43599390/article/details/109624584]
+
 ![oled](https://images.gitee.com/uploads/images/2021/0202/203602_30109c08_5632238.png "oled.png")
 ![oledi](https://images.gitee.com/uploads/images/2021/0202/203718_55ca0cab_5632238.png "oledi.png")
 ![timer](https://images.gitee.com/uploads/images/2021/0202/203623_ae84ec8a_5632238.png "timer.png")
