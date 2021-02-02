@@ -5,17 +5,19 @@
 
 ### STM32F103ZET6
 1. 基本GPIO 板载LED驱动
-2. 2.8 ILI9341 LCD
+2. 2.8 ILI9341 LCD 1.8ST7735LCD
 3. STM32F103ZET6 串口usart 5个串口正常使用
 4. OLED 0.96 模拟IIC
 5. 蜂鸣器BEEP
 6. 定时器timer
 7. DHT11 温湿度传感器
-8. ADC采集
+8. ADC采集 MQ系列传感器
 9. WWDG IWDG 窗口看门狗 独立看门狗
-10. 机智云配网 使用timer3 usart3 配置
+10. 机智云WIFI ESP8266配网 使用timer3 usart3 配置完成
 11. syn6288 语音播报
-12. 其他(后续更新)
+12. RC522 RFID射频卡模拟门禁
+13. BH1750光照传感器 IIC通信
+14. 其他(后续更新)
 ![STM32F103ZET6](https://images.gitee.com/uploads/images/2021/0202/202844_72e1616d_5632238.png "STF103实物图.png")
 
 ### STM32F407ZGT6
