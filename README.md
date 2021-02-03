@@ -38,7 +38,7 @@
 ![timer](https://images.gitee.com/uploads/images/2021/0202/203623_ae84ec8a_5632238.png "timer.png")
 ![usart](https://images.gitee.com/uploads/images/2021/0202/203637_a8d9dcce_5632238.png "usart.png")
 #### [个人博客] (https://delehub.vercel.app/)
-#### [Github](https://github.com/delehu)
+#### [Github](https://github.com/delehub)
 
 Here are some ideas to get you started:
 
