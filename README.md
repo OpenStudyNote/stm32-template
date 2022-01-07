@@ -1,5 +1,16 @@
 # STM32Template
 
+Here are some ideas to get you started:
+
+- 🔭 I’m currently working on BengBu University
+- 🌱 I’m currently learning  C Python STM32 Linux Android Arduino ...
+- 🤔 I’m looking for help with I hope to learn from the bosses of embedded IoT development
+- 💬 Ask me about：A electronic information engineering major student hoping to become an IoT engineer  Learning and currently contacted 8051/Arduino/STM32/Android/Python....
+- 📫 How to reach me: Netease cloud mailbox：delelemonwzx@163.com 
+- Personal Blog https://delehub.vercel.app/
+- CSDN：https://blog.csdn.net/weixin_43599390
+- Gitee:https://gitee.com/lemonhubchat
+
 #### [STM32TemplateWiki](https://gitee.com/lemonhubchat/stm32-template/wikis/Home?sort_id=3507899)
 基于标准库开发的STM32F103ZET6工程模板(常见程序已移植) STM32F407工程模板(目前移植GPIO与LCD)
 
@@ -40,17 +51,10 @@
 #### [个人博客] (https://delehub.vercel.app/)
 #### [Github] (https://github.com/delehub)
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on BengBu University
-- 🌱 I’m currently learning  C Python STM32 Linux Android Arduino ...
-- 🤔 I’m looking for help with I hope to learn from the bosses of embedded IoT development
-- 💬 Ask me about：A electronic information engineering major student hoping to become an IoT engineer  Learning and currently contacted 8051/Arduino/STM32/Android/Python....
-- 📫 How to reach me: Netease cloud mailbox：delelemonwzx@163.com 
-- Personal Blog https://delehub.vercel.app/
-- CSDN：https://blog.csdn.net/weixin_43599390
-- Gitee:https://gitee.com/lemonhubchat
-
+### 2022毕业设计更新
+1.2022.1.7 更新 LCD显示图片  机智云温湿度传输 
+![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/Snipaste_2022-01-07_10-27-33.png)
+![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/Snipaste_2022-01-07_10-28-24.png)
 
 
 
