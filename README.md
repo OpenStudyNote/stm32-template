@@ -1,5 +1,7 @@
 # STM32Template
 
+####  [Blog](https://delehub.vercel.app/)                     [Github](https://github.com/delehub)
+
 Here are some ideas to get you started:
 
 - 🔭 I’m currently working on BengBu University
@@ -12,7 +14,9 @@ Here are some ideas to get you started:
 - Gitee:https://gitee.com/lemonhubchat
 
 #### [STM32TemplateWiki](https://gitee.com/lemonhubchat/stm32-template/wikis/Home?sort_id=3507899)
-基于标准库开发的STM32F103ZET6工程模板(常见程序已移植) STM32F407工程模板(目前移植GPIO与LCD)
+基于标准库开发的STM32工程模板
+1. STM32F103ZET6工程模板(常见程序已移植)
+2. STM32F407工程模板(目前移植LCD)
 
 ### STM32F103ZET6
 1. 基本GPIO 板载LED驱动
@@ -28,7 +32,6 @@ Here are some ideas to get you started:
 11. syn6288 语音播报
 12. RC522 RFID射频卡模拟门禁
 13. BH1750光照传感器 IIC通信
-14. 其他(后续更新)
 ![STM32F103ZET6](https://images.gitee.com/uploads/images/2021/0202/202844_72e1616d_5632238.png "STF103实物图.png")
 
 ### STM32F407ZGT6
@@ -48,8 +51,6 @@ Here are some ideas to get you started:
 ![oledi](https://images.gitee.com/uploads/images/2021/0202/203718_55ca0cab_5632238.png "oledi.png")
 ![timer](https://images.gitee.com/uploads/images/2021/0202/203623_ae84ec8a_5632238.png "timer.png")
 ![usart](https://images.gitee.com/uploads/images/2021/0202/203637_a8d9dcce_5632238.png "usart.png")
-#### [个人博客] (https://delehub.vercel.app/)
-#### [Github] (https://github.com/delehub)
 
 ### 2022毕业设计更新
 1.2022.1.7 更新 LCD显示图片  机智云温湿度传输 
