@@ -32,6 +32,7 @@ Here are some ideas to get you started:
 11. syn6288 语音播报
 12. RC522 RFID射频卡模拟门禁
 13. BH1750光照传感器 IIC通信
+14. AHT10温湿度传感器 IIC通信
 ![STM32F103ZET6](https://images.gitee.com/uploads/images/2021/0202/202844_72e1616d_5632238.png "STF103实物图.png")
 
 ### STM32F407ZGT6
