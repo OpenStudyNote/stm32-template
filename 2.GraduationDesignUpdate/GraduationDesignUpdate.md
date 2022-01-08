@@ -14,7 +14,9 @@
 1.2022.1.7 更新 LCD显示图片  机智云温湿度传输 
 ![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/Snipaste_2022-01-07_10-27-33.png)
 ![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/Snipaste_2022-01-07_10-28-24.png)
-
+2.2022.1.8 更新 添加AHT10温湿度传感器数据 机智云传输温度，更新界面(比较丑)
+![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/Snipaste_2022-01-08_19-24-37.png)
+![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/QQ%E5%9B%BE%E7%89%8720220108192414.png)
 
 
 
