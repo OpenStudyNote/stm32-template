@@ -38,7 +38,7 @@ Here are some ideas to get you started:
 ### STM32F407ZGT6
 1. 基本GPIO端口移植 板载LED驱动
 2. ILI9341驱动的2.8TFTLCD驱动移植
-3. 其他(后续更新)
+3. 2022.1.23 更新LCD相关驱动，LCD画图函数
 
 ![STM32F407ZGT6](https://images.gitee.com/uploads/images/2021/0202/202904_90b7d02d_5632238.png "STF407实物图.png")
 
