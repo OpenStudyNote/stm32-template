@@ -17,30 +17,32 @@ Here are some ideas to get you started:
 基于标准库开发的STM32工程模板
 1. STM32F103ZET6工程模板(常见程序已移植)
 2. STM32F407工程模板(目前移植LCD)
-
-### STM32F103ZET6
-1. 基本GPIO 板载LED驱动
-2. 2.8 ILI9341 LCD 1.8ST7735LCD
-3. STM32F103ZET6 串口usart 5个串口正常使用
-4. OLED 0.96 模拟IIC
-5. 蜂鸣器BEEP
-6. 定时器timer
-7. DHT11 温湿度传感器
-8. ADC采集 MQ系列传感器
-9. WWDG IWDG 窗口看门狗 独立看门狗
-10. 机智云WIFI ESP8266配网 使用timer3 usart3 配置完成
-11. syn6288 语音播报
-12. RC522 RFID射频卡模拟门禁
-13. BH1750光照传感器 IIC通信
-14. AHT10温湿度传感器 IIC通信
 ![STM32F103ZET6](https://images.gitee.com/uploads/images/2021/0202/202844_72e1616d_5632238.png "STF103实物图.png")
-
+![STM32F407ZGT6](https://images.gitee.com/uploads/images/2021/0202/202904_90b7d02d_5632238.png "STF407实物图.png")
+### STM32F103ZET6
+1.  板载LED测试成功
+2.  1.8 ST7735  LCD 软件SPI
+3.  5个串口配置 正常使用
+4.  OLED 0.96 软件IIC
+5.  蜂鸣器 BEEP
+6.  定时器timer 1s定时测试
+7.  串口功能函数测试 USART
+8.  DHT11温湿度传感器 单总线
+9.  ADC MQ系列传感器测试
+10. WWDG IWDG 窗口看门狗 独立看门狗
+11. 机智云配网 使用TIMER3 USART3配置成功
+12 .SYN6288 语音播报模块
+13. BMP280 气体压强传感器配置 软件IIC 
+14. AHT10 温湿度传感器配置 软件IIC 
+15. 机智云 上报传感器数据 NTP 网络时间获取
+16. ST7735 TFT显示传感器数据，图片，汉字，字符串等显示
+17. RC522 RFID射频卡模拟门禁
 ### STM32F407ZGT6
 1. 基本GPIO端口移植 板载LED驱动
 2. ILI9341驱动的2.8TFTLCD驱动移植
 3. 2022.1.23 更新LCD相关驱动，LCD画图函数
 
-![STM32F407ZGT6](https://images.gitee.com/uploads/images/2021/0202/202904_90b7d02d_5632238.png "STF407实物图.png")
+
 
 ### CSDN:
 1. [STM32F1案例 ST7735 TFT液晶显示屏综合库使用](https://blog.csdn.net/weixin_43599390/article/details/109522136)
@@ -56,9 +58,10 @@ Here are some ideas to get you started:
 ### 2022毕业设计更新
 1. 2022.1.7 更新 LCD显示图片  机智云温湿度传输 
 ![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/Snipaste_2022-01-07_10-27-33.png)
-![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/Snipaste_2022-01-07_10-28-24.png)
-2. 2022.1.8 更新 添加AHT10温湿度传感器数据 机智云传输温湿度，更新界面(比较丑)
-![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/Snipaste_2022-01-08_19-24-37.png)
-![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/QQ%E5%9B%BE%E7%89%8720220108192414.png)
 
+2. 2022.1.8 更新 添加AHT10温湿度传感器数据 机智云传输温湿度，更新界面(比较丑)
+
+![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/QQ%E5%9B%BE%E7%89%8720220108192414.png)
+3.基于STM32的物联网环境检测系统(初步效果)
+![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/0209.png)
 
