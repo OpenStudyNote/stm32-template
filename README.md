@@ -68,6 +68,8 @@ Hardware 使用情况
 2. 2022.1.8 更新 添加AHT10温湿度传感器数据 机智云传输温湿度，更新界面(比较丑)
 
 ![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/QQ%E5%9B%BE%E7%89%8720220108192414.png)
-3.基于STM32的物联网环境检测系统(初步效果)
+3.基于STM32的物联网环境检测系统(初步效果 F1)
 ![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/0209.png)
-
+4.2022.2.10 移植机智云配网到STM32F4
+![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/1.jpg)
+![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/2.png)
