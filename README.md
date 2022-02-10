@@ -37,10 +37,16 @@ Here are some ideas to get you started:
 15. 机智云 上报传感器数据 NTP 网络时间获取
 16. ST7735 TFT显示传感器数据，图片，汉字，字符串等显示
 17. RC522 RFID射频卡模拟门禁
+
 ### STM32F407ZGT6
-1. 基本GPIO端口移植 板载LED驱动
-2. ILI9341驱动的2.8TFTLCD驱动移植
-3. 2022.1.23 更新LCD相关驱动，LCD画图函数
+Hardware 使用情况
+1.  板载LED测试成功
+2.  2.8寸LCD ILI9341 正常使用
+3.  Touch触摸屏测试 软件IIC
+4.  板载按键测试成功
+5.  蜂鸣器 BEEP
+6.  LCD功能函数配置成功  数据，图片，汉字，字符串等显示
+7.  机智云配网 使用TIMER3 USART3 配置成功
 
 
 
