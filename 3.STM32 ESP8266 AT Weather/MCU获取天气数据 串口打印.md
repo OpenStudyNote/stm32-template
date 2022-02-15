@@ -72,9 +72,10 @@ void esp8266_start_trans(void)
 
 ```
 ![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/AT2.png)
+
 #### 获取一次实时天气
 
-```
+```c
 //获取一次实时天气
 //返回：0---获取成功，1---获取失败
 u8 get_current_weather(void)
@@ -123,8 +124,9 @@ u8 get_current_weather(void)
 ```
 
 
-6、运行结果</h1> 
+</a>6、运行结果</h1> 
 <p>将代码烧入后，可在串口调试器中查看到接收到的状态信息以及天气数据。<br> 当按下按键(PA0),可再次获取天气数据。<br> <img src="https://img-blog.csdnimg.cn/20210530160010680.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
-<h1><a name="t13" one-link-mark="yes"></a><a id="7_156" one-link-mark="yes"></a>7、源程序</h1> 
+<h1><a name="t13" one-link-mark="yes"></a><a id="7_156" one-link-mark="yes">
+</a>7、源程序</h1> 
 <h2><a name="t14" one-link-mark="yes"></a><a id="71__157" one-link-mark="yes"></a>7.1 百度网盘链接</h2> 
 <p>链接：<br> <a href="https://pan.baidu.com/s/1sd00hF-RVmsDbEoMfnqdBQ" one-link-mark="yes"><span class="one-pan-tip one-pan-tip-success" one-id="sd00hF-RVmsDbEoMfnqdBQ" one-source="baidu" one-tip-mark="yes">https://pan.baidu.com/s/1sd00hF-RVmsDbEoMfnqdBQ</span> </a><br> 提取码：sgek</p> 
