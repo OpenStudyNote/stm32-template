@@ -1,77 +1,97 @@
-<div class="more-toolbox-new more-toolbox-active" id="toolBarBox">
-    <div class="left-toolbox" style="position: fixed; z-index: 999; left: 378px; bottom: 0px; width: 760px;">
-        <div class="toolbox-left">
-            <div class="profile-box"><a class="profile-href" target="_blank" href="https://blog.csdn.net/ethan_33" one-link-mark="yes"><img class="profile-img" src="https://profile.csdnimg.cn/F/E/6/3_ethan_33"><span class="profile-name">绵绵呀。</span></a></div>
-            <div class="profile-attend">
-                    <a class="tool-attend tool-bt-button tool-bt-attend" href="javascript:;" one-link-mark="yes">关注</a>
-                <a class="tool-item-follow active-animation" style="display:none;" one-link-mark="yes">关注</a>
-            </div>
-        </div>
-        <div class="toolbox-middle">
-        <ul class="toolbox-list">
-            <li class="tool-item tool-item-size tool-active is-like" id="is-like">
-            <a class="tool-item-href" one-link-mark="yes">
-                <img style="display:none;" id="is-like-imgactive-animation-like" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarThumbUpactive.png" alt="">
-                <img class="isactive" style="display:none" id="is-like-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2021Active.png" alt="">
-                <img class="isdefault" style="display:block" id="is-like-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2021White.png" alt="">  
-                <span id="spanCount" class="count ">
-                        9
-                </span>
-            </a>
-            <div class="tool-hover-tip"><span class="text space">点赞</span></div>
-            </li>
-            <li class="tool-item tool-item-size tool-active is-unlike" id="is-unlike">
-            <a class="tool-item-href" one-link-mark="yes">
-                <img class="isactive" style="margin-right:0px;display:none" id="is-unlike-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newUnHeart2021Active.png" alt="">
-                <img class="isdefault" style="margin-right:0px;display:block" id="is-unlike-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newUnHeart2021White.png" alt="">
-                <span id="unlikeCount" class="count "></span>
-            </a>
-            <div class="tool-hover-tip"><span class="text space">踩</span></div>
-            </li>
-            <li class="tool-item tool-item-size tool-active tool-item-comment">
-            <a class="tool-item-href" href="#commentBox" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7009&quot;}" one-link-mark="yes">
-                <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newComment2021White.png" alt="">
-                <span class="count">12</span>
-            </a>
-            <div class="tool-hover-tip"><span class="text space">评论</span></div>
-            </li>
-            <li class="tool-item tool-item-size tool-active is-collection ">
-            <a class="tool-item-href" href="javascript:;" data-report-click="{&quot;mod&quot;:&quot;popu_824&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4130&quot;,&quot;ab&quot;:&quot;new&quot;}" one-link-mark="yes">
-                <img style="display:none" id="is-collection-img-collection" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollectionActive.png" alt="">
-                <img class="isdefault" id="is-collection-img" style="display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCollectWhite.png" alt="">
-                <img class="isactive" id="is-collection-imgactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCollectActive.png" alt="">
-                <span class="count get-collection" id="get-collection">
-                    45
-                </span>
-            </a>
-            <div class="tool-hover-tip"><span class="text space">收藏</span></div>
-            </li>
-            <li class="tool-item tool-item-size tool-active tool-item-reward">
-                <a class="tool-item-href" href="javascript:;" data-report-click="{&quot;mod&quot;:&quot;popu_830&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4237&quot;,&quot;dest&quot;:&quot;&quot;,&quot;ab&quot;:&quot;new&quot;}" one-link-mark="yes">
-                <img class="isdefault reward-bt" id="rewardBtNew" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newRewardWhite.png" alt="打赏">
-                <span class="count"></span>
-                </a>
-                <div class="tool-hover-tip"><span class="text space">打赏</span></div>
-            </li>
-            <li class="tool-item tool-item-bar">
-            </li>
-            <li class="tool-item tool-item-size tool-active tool-QRcode" id="tool-share">
-                <a class="tool-item-href" href="javascript:;" data-report-click="{&quot;mod&quot;:&quot;1582594662_002&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4129&quot;,&quot;ab&quot;:&quot;new&quot;}" one-link-mark="yes">
-                    <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newShareWhite.png" alt="">
-                </a>
-                <div class="QRcode" id="tool-QRcode">
-                    <p class="title">
-                    扫一扫，分享海报
-                    </p>
-                    <div id="shareCode" title="https://app-blog.csdn.net/share?article_id=117330349&amp;username=ethan_33&amp;utm_source=po_popup"><canvas width="144" height="144" style="display: none;"></canvas><img src="data:image/png;base64,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" style="display: block;"></div>
-                </div>
-            </li>
-        </ul>
-        </div>
-        <div class="toolbox-right">
-                <div class="tool-directory">
-                    <a class="bt-columnlist-show" data-id="9563163" data-free="true" data-subscribe="false" data-title="STM32" data-img="https://img-blog.csdnimg.cn/20201014180756927.png?x-oss-process=image/resize,m_fixed,h_64,w_64" data-url="https://blog.csdn.net/ethan_33/category_9563163.html" data-sum="6" data-people="0" data-price="0" data-oldprice="0" data-join="false" data-studyvip="false" data-studysubscribe="false" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.6334&quot;,&quot;extend1&quot;:&quot;专栏目录&quot;}" one-link-mark="yes">专栏目录</a>
-                </div>
-        </div>
-    </div>  
+<article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-d7093e7f7c.css">
+                <div id="content_views" class="markdown_views prism-atom-one-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                    <p>前言：<br> 很久以前就想着能够做一个可以显示天气还有时间的小东西，刚好最近有空，研究了一下，发现并没有之前想象的那么难，网上也有很多资料，不过大部分并没有一步一步详细介绍，故把自己的学习过程分享出来，算是自己的输出，也给需要学习的小伙伴提供一下思路。<br> 如果有错误或者是大伙儿有更好的代码写法，欢迎沟通交流！！！</p> 
+<p></p>
+<div class="toc">
+ <h3><a name="t0" one-link-mark="yes"></a>文章目录</h3>
+ <ul><li><a href="#1_5" target="_self" one-link-mark="yes">1、摘要</a></li><li><a href="#2_8" target="_self" one-link-mark="yes">2、硬件准备</a></li><li><ul><li><a href="#21_WIFI_9" target="_self" one-link-mark="yes">2.1 、WIFI模块</a></li><li><a href="#22USBTTL_12" target="_self" one-link-mark="yes">2.2、USB转TTL模块</a></li><li><a href="#23_15" target="_self" one-link-mark="yes">2.3、商品链接</a></li></ul>
+  </li><li><a href="#3_22" target="_self" one-link-mark="yes">3、软件准备</a></li><li><a href="#4_34" target="_self" one-link-mark="yes">4、心知天气注册</a></li><li><a href="#5_53" target="_self" one-link-mark="yes">5、硬件接线</a></li><li><a href="#6AT_65" target="_self" one-link-mark="yes">6、串口AT调试</a></li><li><ul><li><a href="#61AT_68" target="_self" one-link-mark="yes">6.1、AT测试</a></li><li><a href="#62_wifi_74" target="_self" one-link-mark="yes">6.2、 设置wifi模式</a></li><li><a href="#63__81" target="_self" one-link-mark="yes">6.3 、重启模块</a></li><li><a href="#64__87" target="_self" one-link-mark="yes">6.4 、设置连接模式</a></li><li><a href="#65_WIFI_94" target="_self" one-link-mark="yes">6.5 、连接WIFI</a></li><li><a href="#66_TCP_100" target="_self" one-link-mark="yes">6.6 、建立TCP连接</a></li><li><a href="#67__106" target="_self" one-link-mark="yes">6.7 、开启透传模式</a></li><li><a href="#68__113" target="_self" one-link-mark="yes">6.8 、开始透传</a></li><li><a href="#69__120" target="_self" one-link-mark="yes">6.9 、提出请求</a></li></ul>
+ </li></ul>
 </div>
+<p></p> 
+<h1><a name="t1" one-link-mark="yes"></a><a id="1_5" one-link-mark="yes"></a>1、摘要</h1> 
+<p>本章节使用<a href="https://so.csdn.net/so/search?q=ESP8266&amp;spm=1001.2101.3001.7020" target="_blank" class="hl hl-1" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=ESP8266&amp;spm=1001.2101.3001.7020&quot;}" one-link-mark="yes">ESP8266</a>连接USB转TTL串口调试器，通过AT指令获取天气数据<br> 天气数据来源与“心知天气”</p> 
+<h1><a name="t2" one-link-mark="yes"></a><a id="2_8" one-link-mark="yes"></a>2、硬件准备</h1> 
+<h2><a name="t3" one-link-mark="yes"></a><a id="21_WIFI_9" one-link-mark="yes"></a>2.1 、WIFI模块</h2> 
+<p>我使用的是正点原子的ESP8266模块，市面上的ESP8266都大同小异，大家可以自由选择<br> <img src="https://img-blog.csdnimg.cn/20210528215641343.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="正点原子ESP8266"></p> 
+<h2><a name="t4" one-link-mark="yes"></a><a id="22USBTTL_12" one-link-mark="yes"></a>2.2、USB转TTL模块</h2> 
+<p><img src="https://img-blog.csdnimg.cn/20210528234232615.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
+<h2><a name="t5" one-link-mark="yes"></a><a id="23_15" one-link-mark="yes"></a>2.3、商品链接</h2> 
+<p>最小系统板：<a href="https://s.click.taobao.com/9Reevmu" one-link-mark="yes">购买链接</a><br> USB转TTL(种类有点多，随便选一个就行，我用的是CH340这个芯片的)：<a href="https://s.click.taobao.com/IH4t2nu" one-link-mark="yes">购买链接</a><br> ESP8266：<a href="https://s.click.taobao.com/78Qs2nu" one-link-mark="yes">购买链接</a><br> OLED（我用的是0.96寸4针，I2C接口）：<a href="https://s.click.taobao.com/Jn4t2nu" one-link-mark="yes">购买链接</a><br> ST-Link V2下载线：<a href="https://s.click.taobao.com/JNY3vmu" one-link-mark="yes">购买链接</a></p> 
+<h1><a name="t6" one-link-mark="yes"></a><a id="3_22" one-link-mark="yes"></a>3、软件准备</h1> 
+<p>本章节软件部分仅需要串口调试助手,我使用的是"QCOM",因为他有一个可以保存指令的功能，很方便。这边给大家附上下载链接<br> 下载链接：</p> 
+<pre class="prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>item<span class="token punctuation">.</span>taobao<span class="token punctuation">.</span>com<span class="token operator">/</span>item<span class="token punctuation">.</span>htm<span class="token operator">?</span>id<span class="token operator">=</span><span class="token number">524138722961</span><span class="token operator">&amp;</span>ali_refid<span class="token operator">=</span>a3_420434_1006<span class="token operator">:</span><span class="token number">1103191143</span><span class="token operator">:</span><span class="token constant">N</span><span class="token operator">:</span>qwnbk4ga1jWzvtXuIEnkGA<span class="token operator">%</span><span class="token number">3</span>D<span class="token operator">%</span><span class="token number">3</span>D<span class="token operator">:</span><span class="token number">77</span>c2643298acc9aa9dcbe2a294cc97b6<span class="token operator">&amp;</span>ali_trackid<span class="token operator">=</span><span class="token number">1_77</span>c2643298acc9aa9dcbe2a294cc97b6<span class="token operator">&amp;</span>spm<span class="token operator">=</span>a230r<span class="token punctuation">.</span><span class="token number">1.1957635</span><span class="token number">.7</span>
+<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p>提取码：</p> 
+<pre class="prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">pkjh
+<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p><img src="https://img-blog.csdnimg.cn/20210528235524692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
+<h1><a name="t7" one-link-mark="yes"></a><a id="4_34" one-link-mark="yes"></a>4、心知天气注册</h1> 
+<p>登陆心知天气官网，注册</p> 
+<pre class="prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">https<span class="token operator">:</span><span class="token operator">/</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">www.seniverse.com</span><span class="token regex-delimiter">/</span></span>
+<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p>注册完成后点击“产品”，进入“天气数据”<br> <img src="https://img-blog.csdnimg.cn/2021052900012014.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 点击“立即免费试用”<br> <img src="https://img-blog.csdnimg.cn/20210529000239632.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 点击免费版的“免费申请”<br> <img src="https://img-blog.csdnimg.cn/20210529000321952.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 申请后可查看到自己的私钥（自行保存后面需要用到）<br> <img src="https://img-blog.csdnimg.cn/20210529000423977.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 重新点击“产品”—&gt;“天气数据”，点击“查看API文档”<br> <img src="https://img-blog.csdnimg.cn/20210529000628249.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 点击"天气实况"，打开对应的API接口文档<br> <img src="https://img-blog.csdnimg.cn/2021052900065558.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 查看天气实况的接口地址，以及返回的数据结果示例（自行保存后面需要用到）<br> <img src="https://img-blog.csdnimg.cn/20210529000816771.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
+<h1><a name="t8" one-link-mark="yes"></a><a id="5_53" one-link-mark="yes"></a>5、硬件接线</h1> 
+<p>将ESP8266同USB转TTL模块连接起来，开始实验<br> 接线说明：</p> 
+<div class="table-box"><table><thead><tr><th>ESP8266</th><th>USB转TTL</th></tr></thead><tbody><tr><td>VCC</td><td>3.3V</td></tr><tr><td>GND</td><td>GND</td></tr><tr><td>RXD</td><td>TXD</td></tr><tr><td>TXD</td><td>RXD</td></tr></tbody></table></div>
+<p>ESP8266还有两个接口“IO_O”和“RST”，这里直接接3.3V。我是接到MCU的3.3V<br> IO：低电平时烧录，高电平是使用<br> RST：低电平复位，高电平正常工作</p> 
+<h1><a name="t9" one-link-mark="yes"></a><a id="6AT_65" one-link-mark="yes"></a>6、串口AT调试</h1> 
+<p>本章节使用AT指令获取到天气情况，这里列出对应的AT指令<br> 串口助手波特率设置位115200，其他设置默认即可</p> 
+<h2><a name="t10" one-link-mark="yes"></a><a id="61AT_68" one-link-mark="yes"></a>6.1、AT测试</h2> 
+<p>发送 “AT” ：正常启动就会响应“OK”</p> 
+<pre class="prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token constant">AT</span>
+<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p><img src="https://img-blog.csdnimg.cn/20210529002746158.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
+<h2><a name="t11" one-link-mark="yes"></a><a id="62_wifi_74" one-link-mark="yes"></a>6.2、 设置wifi模式</h2> 
+<p>使用串口发送指令AT+CWMODE=1设置模块Wi_Fi应用模式为Station模式</p> 
+<pre class="prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token constant">AT</span><span class="token operator">+</span><span class="token constant">CWMODE</span><span class="token operator">=</span><span class="token number">1</span>
+<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p><img src="https://img-blog.csdnimg.cn/20210529002915530.png" alt="在这里插入图片描述"><br> <img src="https://img-blog.csdnimg.cn/20210529003027304.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
+<h2><a name="t12" one-link-mark="yes"></a><a id="63__81" one-link-mark="yes"></a>6.3 、重启模块</h2> 
+<p>发送指令AT+RST使模块重启,重启后等待一段时间</p> 
+<pre class="prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token constant">AT</span><span class="token operator">+</span><span class="token constant">RST</span>
+<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p><img src="https://img-blog.csdnimg.cn/20210529003146440.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
+<h2><a name="t13" one-link-mark="yes"></a><a id="64__87" one-link-mark="yes"></a>6.4 、设置连接模式</h2> 
+<p>发送指令AT+CIPMUX=0 设置模块为单路连接模式</p> 
+<pre class="prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token constant">AT</span><span class="token operator">+</span><span class="token constant">CIPMUX</span><span class="token operator">=</span><span class="token number">0</span>
+<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p><img src="https://img-blog.csdnimg.cn/20210529003513510.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> <img src="https://img-blog.csdnimg.cn/20210529003423671.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
+<h2><a name="t14" one-link-mark="yes"></a><a id="65_WIFI_94" one-link-mark="yes"></a>6.5 、连接WIFI</h2> 
+<p>发送指令AT+CWJAP=“ssid”,“pwd”，ssid就是你要连接WiFi的名字，pwd就是密码</p> 
+<pre class="prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token constant">AT</span><span class="token operator">+</span><span class="token constant">CWJAP</span><span class="token operator">=</span><span class="token string">"ssid"</span><span class="token punctuation">,</span><span class="token string">"pwd"</span>
+<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p><img src="https://img-blog.csdnimg.cn/20210529003833649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
+<h2><a name="t15" one-link-mark="yes"></a><a id="66_TCP_100" one-link-mark="yes"></a>6.6 、建立TCP连接</h2> 
+<p>发送指令AT+CIPSTART=“TCP”,“api.seniverse.com”,80，和心知天气建立TCP连接</p> 
+<pre class="prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token constant">AT</span><span class="token operator">+</span><span class="token constant">CIPSTART</span><span class="token operator">=</span><span class="token string">"TCP"</span><span class="token punctuation">,</span><span class="token string">"api.seniverse.com"</span><span class="token punctuation">,</span><span class="token number">80</span>
+<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p><img src="https://img-blog.csdnimg.cn/20210529004253342.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
+<h2><a name="t16" one-link-mark="yes"></a><a id="67__106" one-link-mark="yes"></a>6.7 、开启透传模式</h2> 
+<p>发送指令“AT+CIPMODE=1”设置成功则返回OK</p> 
+<pre class="prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token constant">AT</span><span class="token operator">+</span><span class="token constant">CIPMODE</span><span class="token operator">=</span><span class="token number">1</span>
+<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p><img src="https://img-blog.csdnimg.cn/20210529004505823.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> <img src="https://img-blog.csdnimg.cn/20210529004533776.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
+<h2><a name="t17" one-link-mark="yes"></a><a id="68__113" one-link-mark="yes"></a>6.8 、开始透传</h2> 
+<p>发送指令“AT+CIPSEND” 开始透传</p> 
+<pre class="prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token constant">AT</span><span class="token operator">+</span><span class="token constant">CIPSEND</span>
+<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p><img src="https://img-blog.csdnimg.cn/20210529005349496.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
+<h2><a name="t18" one-link-mark="yes"></a><a id="69__120" one-link-mark="yes"></a>6.9 、提出请求</h2> 
+<p>发送“GET https://api.seniverse.com/v3/weather/now.json?key=私钥&amp;location=城市拼音&amp;language=zh-Hans&amp;unit=c”向网址提出请求</p> 
+<pre class="prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token constant">GET</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>api<span class="token punctuation">.</span>seniverse<span class="token punctuation">.</span>com<span class="token operator">/</span>v3<span class="token operator">/</span>weather<span class="token operator">/</span>now<span class="token punctuation">.</span>json<span class="token operator">?</span>key<span class="token operator">=</span>私钥<span class="token operator">&amp;</span>location<span class="token operator">=</span>城市<span class="token operator">&amp;</span>language<span class="token operator">=</span>zh<span class="token operator">-</span>Hans<span class="token operator">&amp;</span>unit<span class="token operator">=</span>c
+<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p>这里的location可以改为自己的城市，我的是深圳（shenzhen）<br> 私钥为心知天气中获取到的私钥<br> 语言language用的是中文（zh-Hans），这部分可以自行到心知天气官网的文档查看<br> <img src="https://img-blog.csdnimg.cn/20210529151334181.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 接收成功，因为编码方式不同所以会有乱码，不过不影响，后面我们写代码会处理这些数据。<br> 通过接收到的数据，我们可以查看到我当前的天气为26摄氏度。<br> 实验成功！</p> 
+<p>传送门：</p> 
+<p><a href="https://blog.csdn.net/ethan_33/article/details/117330349" one-link-mark="yes">基于STM32的ESP8266天气时钟(1)---------AT指令获取天气数据</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117398233" one-link-mark="yes">基于STM32的ESP8266天气时钟(2)--------MCU获取天气数据</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117451219" one-link-mark="yes">基于STM32的ESP8266天气时钟(3)--------MCU数据处理及显示</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117596614" one-link-mark="yes">基于STM32F的ESP8266天气时钟(4)--------MCU获取时间及显示（完结）</a></p>
+                </div><div data-report-view="{&quot;mod&quot;:&quot;1585297308_001&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6548&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/ethan_33/article/details/117330349&quot;,&quot;extend1&quot;:&quot;pc&quot;,&quot;ab&quot;:&quot;new&quot;}"><div></div></div>
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-89f5acb30b.css" rel="stylesheet">
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-49037e4d27.css" rel="stylesheet">
+        </div>
+        
+    </article>
