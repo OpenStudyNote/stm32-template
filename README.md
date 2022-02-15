@@ -63,16 +63,8 @@ Hardware 使用情况
 
 ### 2022毕业设计更新
 1. 2022.1.7 更新 LCD显示图片  机智云温湿度传输 
-![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/Snipaste_2022-01-07_10-27-33.png)
-
 2. 2022.1.8 更新 添加AHT10温湿度传感器数据 机智云传输温湿度，更新界面(比较丑)
-
-![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/QQ%E5%9B%BE%E7%89%8720220108192414.png)
-3.基于STM32的物联网环境检测系统(初步效果 F1)
-![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/0209.png)
-4.2022.2.10 移植机智云配网到STM32F4
-![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/1.png)
-![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/2.png)
-
-5.STM32 ESP8266 AT Weather (转载CSDN博主文章方便学习)
+3. 基于STM32的物联网环境检测系统(初步效果 F1)
+4. 2022.2.10 移植机智云配网到STM32F4
+5. STM32 ESP8266 AT Weather (转载CSDN博主文章方便学习)
 <p><a href="https://blog.csdn.net/ethan_33/article/details/117330349" one-link-mark="yes">基于STM32的ESP8266天气时钟(1)---------AT指令获取天气数据</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117398233" one-link-mark="yes">基于STM32的ESP8266天气时钟(2)--------MCU获取天气数据</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117451219" one-link-mark="yes">基于STM32的ESP8266天气时钟(3)--------MCU数据处理及显示</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117596614" one-link-mark="yes">基于STM32F的ESP8266天气时钟(4)--------MCU获取时间及显示（完结）</a></p>
