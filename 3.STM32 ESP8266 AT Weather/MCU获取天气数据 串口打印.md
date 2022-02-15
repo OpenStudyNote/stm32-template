@@ -35,96 +35,96 @@
 <div class="table-box"><table><thead><tr><th>MCU</th><th>USB转TTL</th></tr></thead><tbody><tr><td>5V</td><td>VCC</td></tr><tr><td>GND</td><td>GND</td></tr><tr><td>PA9</td><td>RXD</td></tr><tr><td>PA10</td><td>TXD</td></tr></tbody></table></div>
 <h1><a name="t9" one-link-mark="yes"></a><a id="5_48" one-link-mark="yes"></a>5、代码解析</h1> 
 <p>基础功能的代码这里就不详细介绍了，主要讲解关键代码。<br> 源代码在文末下载，大部分代码已经加上注释。</p> 
-<h2><a name="t10" one-link-mark="yes"></a><a id="51ESP8266_51" one-link-mark="yes"></a>5.1、ESP8266初始化程序</h2> 
-<p>ESP8266初始化，实现建立WIFI连接的功能。<br> 其实就是串口发送AT指令，然后等待ESP8266的回复而已，很简单的。<br> 移植时需要更改的地方为wifi的账号（wifista_ssid）和密码（wifista_password），该定义在esp8266.c中更改。<br> 本代码发送的AT指令有：</p> 
-<div class="table-box"><table><thead><tr><th>指令</th><th>回复</th><th>功能</th></tr></thead><tbody><tr><td>AT</td><td>OK</td><td>AT测试</td></tr><tr><td>AT+CWMODE=1</td><td>OK</td><td>设置wifi模式</td></tr><tr><td>AT+RST</td><td>OK</td><td>重启模块</td></tr><tr><td>AT+CIPMUX=0</td><td>OK</td><td>设置连接模式</td></tr><tr><td>AT+CWJAP=“ssid”,“pwd”</td><td>WIFI GOT IP</td><td>连接wifi</td></tr></tbody></table></div>
-<pre class="set-code-hide prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token keyword">void</span> <span class="token function">esp8266_start_trans</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">void</span></span><span class="token punctuation">)</span>
-<span class="token punctuation">{<!-- --></span>
-	u8 <span class="token operator">*</span>p<span class="token punctuation">;</span>
-	p<span class="token operator">=</span><span class="token function">mymalloc</span><span class="token punctuation">(</span><span class="token constant">SRAMIN</span><span class="token punctuation">,</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>							<span class="token comment">//申请32字节内存，用于存wifista_ssid，wifista_password</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"send:AT\r\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	
-	<span class="token keyword">while</span><span class="token punctuation">(</span><span class="token function">esp8266_send_cmd</span><span class="token punctuation">(</span><span class="token string">"AT"</span><span class="token punctuation">,</span><span class="token string">"OK"</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token comment">//检查WIFI模块是否在线</span>
-	<span class="token punctuation">{<!-- --></span>
-	<span class="token punctuation">}</span> 
-	<span class="token comment">//设置工作模式 1：station模式   2：AP模式  3：兼容 AP+station模式</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"send:AT+CWMODE=1\r\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	
-	<span class="token function">esp8266_send_cmd</span><span class="token punctuation">(</span><span class="token string">"AT+CWMODE=1"</span><span class="token punctuation">,</span><span class="token string">"OK"</span><span class="token punctuation">,</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token comment">//Wifi模块重启</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"send:AT+RST\r\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	
-	<span class="token function">esp8266_send_cmd</span><span class="token punctuation">(</span><span class="token string">"AT+RST"</span><span class="token punctuation">,</span><span class="token string">"OK"</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token function">delay_ms</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">//延时3S等待重启成功</span>
-	<span class="token function">delay_ms</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token function">delay_ms</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	
-	
-	<span class="token comment">//设置连接到的WIFI网络名称/加密方式/密码,这几个参数需要根据您自己的路由器设置进行修改!! </span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"send:AT+CIPMUX=0\r\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	
-	<span class="token function">esp8266_send_cmd</span><span class="token punctuation">(</span><span class="token string">"AT+CIPMUX=0"</span><span class="token punctuation">,</span><span class="token string">"OK"</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">//0：单连接，1：多连接		</span>
+<h2><a name="t10" one-link-mark="yes"></a><a id="51ESP8266_51" one-link-mark="yes">
 
-	<span class="token function">sprintf</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span>p<span class="token punctuation">,</span><span class="token string">"AT+CWJAP=\"%s\",\"%s\""</span><span class="token punctuation">,</span>wifista_ssid<span class="token punctuation">,</span>wifista_password<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//设置无线参数:ssid,密码</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"send:AT+CWJAP=\"%s\",\"%s\"\r\n"</span><span class="token punctuation">,</span>wifista_ssid<span class="token punctuation">,</span>wifista_password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+#### ESP8266初始化程序
+![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/AT1.png)
+```c
+void esp8266_start_trans(void)
+{
+	u8 *p;
+	p=mymalloc(SRAMIN,50);							//申请32字节内存，用于存wifista_ssid，wifista_password
+	printf("send:AT\r\n");	
+	while(esp8266_send_cmd("AT","OK",20))//检查WIFI模块是否在线
+	{
+	} 
+	//设置工作模式 1：station模式   2：AP模式  3：兼容 AP+station模式
+	printf("send:AT+CWMODE=1\r\n");	
+	esp8266_send_cmd("AT+CWMODE=1","OK",50);
+	//Wifi模块重启
+	printf("send:AT+RST\r\n");	
+	esp8266_send_cmd("AT+RST","OK",20);
+	delay_ms(1000);         //延时3S等待重启成功
+	delay_ms(1000);
+	delay_ms(1000);	
 	
-	<span class="token keyword">while</span><span class="token punctuation">(</span><span class="token function">esp8266_send_cmd</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span><span class="token string">"WIFI GOT IP"</span><span class="token punctuation">,</span><span class="token number">300</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>					<span class="token comment">//连接目标路由器,并且获得IP</span>
-	<span class="token function">myfree</span><span class="token punctuation">(</span><span class="token constant">SRAMIN</span><span class="token punctuation">,</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+	//设置连接到的WIFI网络名称/加密方式/密码,这几个参数需要根据您自己的路由器设置进行修改!! 
+	printf("send:AT+CIPMUX=0\r\n");	
+	esp8266_send_cmd("AT+CIPMUX=0","OK",20);   //0：单连接，1：多连接		
 
-<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><div class="hide-preCode-box"><span data-report-view="{&quot;spm&quot;:&quot;1001.2101.3001.7365&quot;}"><img class="look-more-preCode contentImg-no-view" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCodeMoreWhite.png" alt="" title=""></span></div><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li><li style="color: rgb(153, 153, 153);">5</li><li style="color: rgb(153, 153, 153);">6</li><li style="color: rgb(153, 153, 153);">7</li><li style="color: rgb(153, 153, 153);">8</li><li style="color: rgb(153, 153, 153);">9</li><li style="color: rgb(153, 153, 153);">10</li><li style="color: rgb(153, 153, 153);">11</li><li style="color: rgb(153, 153, 153);">12</li><li style="color: rgb(153, 153, 153);">13</li><li style="color: rgb(153, 153, 153);">14</li><li style="color: rgb(153, 153, 153);">15</li><li style="color: rgb(153, 153, 153);">16</li><li style="color: rgb(153, 153, 153);">17</li><li style="color: rgb(153, 153, 153);">18</li><li style="color: rgb(153, 153, 153);">19</li><li style="color: rgb(153, 153, 153);">20</li><li style="color: rgb(153, 153, 153);">21</li><li style="color: rgb(153, 153, 153);">22</li><li style="color: rgb(153, 153, 153);">23</li><li style="color: rgb(153, 153, 153);">24</li><li style="color: rgb(153, 153, 153);">25</li><li style="color: rgb(153, 153, 153);">26</li><li style="color: rgb(153, 153, 153);">27</li><li style="color: rgb(153, 153, 153);">28</li><li style="color: rgb(153, 153, 153);">29</li></ul></pre> 
-<h2><a name="t11" one-link-mark="yes"></a><a id="52_95" one-link-mark="yes"></a>5.2、获取实时天气程序</h2> 
-<p>这段代码和wifi初始化的分开，因为初始化代码只需要运行一次，而天气获取，是需要多次运行的。分开的话可以避免重复设置ESP8266的一些功能。<br> 移植时需要更改的地方为代码中u3_printf中的私钥和地点。<br> 本代码发送的AT指令有：</p> 
-<div class="table-box"><table><thead><tr><th>指令</th><th>回复</th><th>功能</th></tr></thead><tbody><tr><td>AT+CIPSTART=“TCP”,“api.seniverse.com”,80</td><td>OK</td><td>建立TCP连接</td></tr><tr><td>AT+CIPMODE=1</td><td>OK</td><td>开启通透模式</td></tr><tr><td>AT+CIPSEND</td><td>OK</td><td>开始透传</td></tr><tr><td>GET https://api.seniverse.com/v3/weather/now.json?key=私钥&amp;location=城市&amp;language=zh-Hans&amp;unit=c\n\n</td><td>天气数据</td><td>提出请求</td></tr><tr><td>+++</td><td></td><td>退出透传</td></tr></tbody></table></div>
-<pre class="set-code-hide prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token comment">//获取一次实时天气</span>
-<span class="token comment">//返回：0---获取成功，1---获取失败</span>
-u8 <span class="token function">get_current_weather</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">void</span></span><span class="token punctuation">)</span>
-<span class="token punctuation">{<!-- --></span>
-	u8 res<span class="token punctuation">;</span>
-	p<span class="token operator">=</span><span class="token function">mymalloc</span><span class="token punctuation">(</span><span class="token constant">SRAMIN</span><span class="token punctuation">,</span><span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">;</span>							<span class="token comment">//申请40字节内存</span>
+	sprintf((char*)p,"AT+CWJAP=\"%s\",\"%s\"",wifista_ssid,wifista_password);//设置无线参数:ssid,密码
+	printf("send:AT+CWJAP=\"%s\",\"%s\"\r\n",wifista_ssid,wifista_password);
+	
+	while(esp8266_send_cmd(p,"WIFI GOT IP",300));					//连接目标路由器,并且获得IP
+	myfree(SRAMIN,p);
+}
+
+
+```
+![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/AT2.png)
+#### 获取一次实时天气
+
+```
+//获取一次实时天气
+//返回：0---获取成功，1---获取失败
+u8 get_current_weather(void)
+{
+	u8 res;
+	p=mymalloc(SRAMIN,40);							//申请40字节内存
 	
 	
-	<span class="token function">sprintf</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span>p<span class="token punctuation">,</span><span class="token string">"AT+CIPSTART=\"TCP\",\"%s\",%s"</span><span class="token punctuation">,</span><span class="token constant">WEATHER_SERVERIP</span><span class="token punctuation">,</span><span class="token constant">WEATHER_PORTNUM</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">//配置目标TCP服务器</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"send:AT+CIPSTART=\"TCP\",\"%s\",%s\r\n"</span><span class="token punctuation">,</span><span class="token constant">WEATHER_SERVERIP</span><span class="token punctuation">,</span><span class="token constant">WEATHER_PORTNUM</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	res <span class="token operator">=</span> <span class="token function">esp8266_send_cmd</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span><span class="token string">"OK"</span><span class="token punctuation">,</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//连接到目标TCP服务器</span>
-	<span class="token keyword">if</span><span class="token punctuation">(</span>res<span class="token operator">==</span><span class="token number">1</span><span class="token punctuation">)</span>
-	<span class="token punctuation">{<!-- --></span>
-		<span class="token function">myfree</span><span class="token punctuation">(</span><span class="token constant">SRAMIN</span><span class="token punctuation">,</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	sprintf((char*)p,"AT+CIPSTART=\"TCP\",\"%s\",%s",WEATHER_SERVERIP,WEATHER_PORTNUM);    //配置目标TCP服务器
+	printf("send:AT+CIPSTART=\"TCP\",\"%s\",%s\r\n",WEATHER_SERVERIP,WEATHER_PORTNUM);
+	res = esp8266_send_cmd(p,"OK",200);//连接到目标TCP服务器
+	if(res==1)
+	{
+		myfree(SRAMIN,p);
 		
-		<span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-	<span class="token punctuation">}</span>
-	<span class="token function">delay_ms</span><span class="token punctuation">(</span><span class="token number">300</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		return 1;
+	}
+	delay_ms(300);
 	
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"send:AT+CIPMODE=1\r\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	
-	<span class="token function">esp8266_send_cmd</span><span class="token punctuation">(</span><span class="token string">"AT+CIPMODE=1"</span><span class="token punctuation">,</span><span class="token string">"OK"</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">//传输模式为：透传	</span>
+	printf("send:AT+CIPMODE=1\r\n");	
+	esp8266_send_cmd("AT+CIPMODE=1","OK",100);      //传输模式为：透传	
 
-	<span class="token constant">USART3_RX_STA</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"send:AT+CIPSEND\r\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	
-	<span class="token function">esp8266_send_cmd</span><span class="token punctuation">(</span><span class="token string">"AT+CIPSEND"</span><span class="token punctuation">,</span><span class="token string">"OK"</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">//开始透传</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"start trans...\r\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	USART3_RX_STA=0;
+	printf("send:AT+CIPSEND\r\n");	
+	esp8266_send_cmd("AT+CIPSEND","OK",100);         //开始透传
+	printf("start trans...\r\n");
 	
-	<span class="token function">u3_printf</span><span class="token punctuation">(</span><span class="token string">"GET https://api.seniverse.com/v3/weather/now.json?key=私钥&amp;location=城市&amp;language=zh-Hans&amp;unit=c\n\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	
-	<span class="token function">delay_ms</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//延时20ms返回的是指令发送成功的状态</span>
-	<span class="token constant">USART3_RX_STA</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>	<span class="token comment">//清零串口3数据</span>
-	<span class="token function">delay_ms</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token constant">USART3_RX_STA</span><span class="token operator">&amp;</span><span class="token number">0X8000</span><span class="token punctuation">)</span>		<span class="token comment">//此时再次接到一次数据，为天气的数据</span>
-	<span class="token punctuation">{<!-- --></span> 
-		<span class="token constant">USART3_RX_BUF</span><span class="token punctuation">[</span><span class="token constant">USART3_RX_STA</span><span class="token operator">&amp;</span><span class="token number">0X7FFF</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span><span class="token comment">//添加结束符</span>
-	<span class="token punctuation">}</span> 
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"USART3_RX_BUF=%s\r\n"</span><span class="token punctuation">,</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	u3_printf("GET https://api.seniverse.com/v3/weather/now.json?key=私钥&location=城市&language=zh-Hans&unit=c\n\n");	
+	delay_ms(20);//延时20ms返回的是指令发送成功的状态
+	USART3_RX_STA=0;	//清零串口3数据
+	delay_ms(1000);
+	if(USART3_RX_STA&0X8000)		//此时再次接到一次数据，为天气的数据
+	{ 
+		USART3_RX_BUF[USART3_RX_STA&0X7FFF]=0;//添加结束符
+	} 
+	printf("USART3_RX_BUF=%s\r\n",USART3_RX_BUF);
 	
-	<span class="token function">atk_8266_quit_trans</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//退出透传</span>
+	atk_8266_quit_trans();//退出透传
 	
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"send:AT+CIPCLOSE\r\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	
-	<span class="token function">esp8266_send_cmd</span><span class="token punctuation">(</span><span class="token string">"AT+CIPCLOSE"</span><span class="token punctuation">,</span><span class="token string">"OK"</span><span class="token punctuation">,</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">//关闭连接</span>
-	<span class="token function">myfree</span><span class="token punctuation">(</span><span class="token constant">SRAMIN</span><span class="token punctuation">,</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><div class="hide-preCode-box"><span data-report-view="{&quot;spm&quot;:&quot;1001.2101.3001.7365&quot;}"><img class="look-more-preCode contentImg-no-view" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCodeMoreWhite.png" alt="" title=""></span></div><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li><li style="color: rgb(153, 153, 153);">5</li><li style="color: rgb(153, 153, 153);">6</li><li style="color: rgb(153, 153, 153);">7</li><li style="color: rgb(153, 153, 153);">8</li><li style="color: rgb(153, 153, 153);">9</li><li style="color: rgb(153, 153, 153);">10</li><li style="color: rgb(153, 153, 153);">11</li><li style="color: rgb(153, 153, 153);">12</li><li style="color: rgb(153, 153, 153);">13</li><li style="color: rgb(153, 153, 153);">14</li><li style="color: rgb(153, 153, 153);">15</li><li style="color: rgb(153, 153, 153);">16</li><li style="color: rgb(153, 153, 153);">17</li><li style="color: rgb(153, 153, 153);">18</li><li style="color: rgb(153, 153, 153);">19</li><li style="color: rgb(153, 153, 153);">20</li><li style="color: rgb(153, 153, 153);">21</li><li style="color: rgb(153, 153, 153);">22</li><li style="color: rgb(153, 153, 153);">23</li><li style="color: rgb(153, 153, 153);">24</li><li style="color: rgb(153, 153, 153);">25</li><li style="color: rgb(153, 153, 153);">26</li><li style="color: rgb(153, 153, 153);">27</li><li style="color: rgb(153, 153, 153);">28</li><li style="color: rgb(153, 153, 153);">29</li><li style="color: rgb(153, 153, 153);">30</li><li style="color: rgb(153, 153, 153);">31</li><li style="color: rgb(153, 153, 153);">32</li><li style="color: rgb(153, 153, 153);">33</li><li style="color: rgb(153, 153, 153);">34</li><li style="color: rgb(153, 153, 153);">35</li><li style="color: rgb(153, 153, 153);">36</li><li style="color: rgb(153, 153, 153);">37</li><li style="color: rgb(153, 153, 153);">38</li><li style="color: rgb(153, 153, 153);">39</li><li style="color: rgb(153, 153, 153);">40</li><li style="color: rgb(153, 153, 153);">41</li><li style="color: rgb(153, 153, 153);">42</li><li style="color: rgb(153, 153, 153);">43</li><li style="color: rgb(153, 153, 153);">44</li></ul></pre> 
-<h1><a name="t12" one-link-mark="yes"></a><a id="6_152" one-link-mark="yes"></a>6、运行结果</h1> 
+	printf("send:AT+CIPCLOSE\r\n");	
+	esp8266_send_cmd("AT+CIPCLOSE","OK",50);         //关闭连接
+	myfree(SRAMIN,p);
+	return 0;
+}
+
+```
+
+
+6、运行结果</h1> 
 <p>将代码烧入后，可在串口调试器中查看到接收到的状态信息以及天气数据。<br> 当按下按键(PA0),可再次获取天气数据。<br> <img src="https://img-blog.csdnimg.cn/20210530160010680.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
 <h1><a name="t13" one-link-mark="yes"></a><a id="7_156" one-link-mark="yes"></a>7、源程序</h1> 
 <h2><a name="t14" one-link-mark="yes"></a><a id="71__157" one-link-mark="yes"></a>7.1 百度网盘链接</h2> 
 <p>链接：<br> <a href="https://pan.baidu.com/s/1sd00hF-RVmsDbEoMfnqdBQ" one-link-mark="yes"><span class="one-pan-tip one-pan-tip-success" one-id="sd00hF-RVmsDbEoMfnqdBQ" one-source="baidu" one-tip-mark="yes">https://pan.baidu.com/s/1sd00hF-RVmsDbEoMfnqdBQ</span> </a><br> 提取码：sgek</p> 
-<p>传送门：<br> <a href="https://blog.csdn.net/ethan_33/article/details/117330349" one-link-mark="yes">基于STM32的ESP8266天气时钟(1)---------AT指令获取天气数据</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117398233" one-link-mark="yes">基于STM32的ESP8266天气时钟(2)--------MCU获取天气数据</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117451219" one-link-mark="yes">基于STM32的ESP8266天气时钟(3)--------MCU数据处理及显示</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117596614" one-link-mark="yes">基于STM32F的ESP8266天气时钟(4)--------MCU获取时间及显示（完结）</a></p>
-                </div><div data-report-view="{&quot;mod&quot;:&quot;1585297308_001&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6548&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/ethan_33/article/details/117398233&quot;,&quot;extend1&quot;:&quot;pc&quot;,&quot;ab&quot;:&quot;new&quot;}"><div></div></div>
-                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-89f5acb30b.css" rel="stylesheet">
-                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-49037e4d27.css" rel="stylesheet">
-        </div>
-        
-    </article>
