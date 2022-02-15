@@ -1,11 +1,4 @@
-<article class="baidu_pl">
-        <div id="article_content" class="article_content clearfix">
-        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-d7093e7f7c.css">
-                <div id="content_views" class="markdown_views prism-atom-one-dark">
-                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
-                    </svg>
-                    <p>前言：完结撒花~本篇内容在原有的项目基础上添加了获取北京时间的功能，并对OLED显示屏的显示内容进行完善修改。<br> 想实现的功能大部分已经完成了，虽然这个实验比较简单，不能独立支撑起一个项目，不过未来会将其作为一个小功能嵌入到其他的应用开发中。加油加油！！！<br> </p>
+<p>前言：完结撒花~本篇内容在原有的项目基础上添加了获取北京时间的功能，并对OLED显示屏的显示内容进行完善修改。<br> 想实现的功能大部分已经完成了，虽然这个实验比较简单，不能独立支撑起一个项目，不过未来会将其作为一个小功能嵌入到其他的应用开发中。加油加油！！！<br> </p>
 <div class="toc">
  <h3><a name="t0" one-link-mark="yes"></a>文章目录</h3>
  <ul><li><a href="#1_3" target="_self" one-link-mark="yes">1、摘要</a></li><li><a href="#2_7" target="_self" one-link-mark="yes">2、硬件准备</a></li><li><ul><li><a href="#21_9" target="_self" one-link-mark="yes">2.1、商品链接</a></li></ul>
@@ -27,138 +20,134 @@
 <div class="table-box"><table><thead><tr><th>MCU</th><th>USB转TTL</th></tr></thead><tbody><tr><td>5V</td><td>VCC</td></tr><tr><td>GND</td><td>GND</td></tr><tr><td>PA9</td><td>RXD</td></tr><tr><td>PA10</td><td>TXD</td></tr></tbody></table></div> 
 <div class="table-box"><table><thead><tr><th>MCU</th><th>OLED</th></tr></thead><tbody><tr><td>5V</td><td>VCC</td></tr><tr><td>GND</td><td>GND</td></tr><tr><td>PB15</td><td>SDA</td></tr><tr><td>PB13</td><td>SCL</td></tr></tbody></table></div>
 <h1><a name="t6" one-link-mark="yes"></a><a id="5_42" one-link-mark="yes"></a>5、代码解析</h1> 
-<h2><a name="t7" one-link-mark="yes"></a><a id="51_43" one-link-mark="yes"></a>5.1、获取实时时间程序</h2> 
-<p>本程序与获取天气数据程序类似。<br> 本代码发送的AT指令有：</p> 
-<div class="table-box"><table><thead><tr><th>指令</th><th>回复</th><th>功能</th></tr></thead><tbody><tr><td>AT+CIPSTART=“TCP”,"“www.beijing-time.org”",80</td><td>OK</td><td>建立TCP连接</td></tr><tr><td>AT+CIPMODE=1</td><td>OK</td><td>开启通透模式</td></tr><tr><td>AT+CIPSEND</td><td>OK</td><td>开始透传</td></tr><tr><td>GET /time15.asp HTTP/1.1Host:www.beijing-time.org\n\n</td><td>时间数据</td><td>提出请求</td></tr><tr><td>+++</td><td></td><td>退出透传</td></tr></tbody></table></div>
-<pre class="set-code-hide prettyprint"><code class="prism language-javascript has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token comment">/*********************************************************************************
+<h2><a name="t7" one-link-mark="yes"></a><a id="51_43" one-link-mark="yes">
+
+### 获取实时时间程序
+![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/AT2.png)
+```c
+/*********************************************************************************
 * Function Name    ： get_beijing_time,获取时间
 * Parameter		   ： 
 * Return Value     ： 返回：0---获取成功，1---获取失败
 * Function Explain ： 
 * Create Date      ： 2021/6/5 by zzh
-**********************************************************************************/</span>
-u8 <span class="token function">get_beijing_time</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">void</span></span><span class="token punctuation">)</span>
-<span class="token punctuation">{<!-- --></span>
-	u8 <span class="token operator">*</span>p<span class="token punctuation">;</span>
-	u8 res<span class="token punctuation">;</span>
+**********************************************************************************/
+u8 get_beijing_time(void)
+{
+	u8 *p;
+	u8 res;
 	
-	u8 <span class="token operator">*</span>resp<span class="token punctuation">;</span>
-	u8 <span class="token operator">*</span>p_end<span class="token punctuation">;</span>
-	u8 ipbuf<span class="token punctuation">[</span><span class="token number">16</span><span class="token punctuation">]</span><span class="token punctuation">;</span> 	<span class="token comment">//IP缓存</span>
-	p<span class="token operator">=</span><span class="token function">mymalloc</span><span class="token punctuation">(</span><span class="token constant">SRAMIN</span><span class="token punctuation">,</span><span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">;</span>							<span class="token comment">//申请40字节内存</span>
-	resp<span class="token operator">=</span><span class="token function">mymalloc</span><span class="token punctuation">(</span><span class="token constant">SRAMIN</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	p_end<span class="token operator">=</span><span class="token function">mymalloc</span><span class="token punctuation">(</span><span class="token constant">SRAMIN</span><span class="token punctuation">,</span><span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	u8 *resp;
+	u8 *p_end;
+	u8 ipbuf[16]; 	//IP缓存
+	p=mymalloc(SRAMIN,40);							//申请40字节内存
+	resp=mymalloc(SRAMIN,10);
+	p_end=mymalloc(SRAMIN,40);
 	
-	<span class="token function">sprintf</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span>p<span class="token punctuation">,</span><span class="token string">"AT+CIPSTART=\"TCP\",\"%s\",%s"</span><span class="token punctuation">,</span><span class="token constant">TIME_SERVERIP</span><span class="token punctuation">,</span><span class="token constant">TIME_PORTNUM</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">//配置目标TCP服务器</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	res <span class="token operator">=</span> <span class="token function">esp8266_send_cmd</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span><span class="token string">"OK"</span><span class="token punctuation">,</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//连接到目标TCP服务器</span>
-	<span class="token keyword">if</span><span class="token punctuation">(</span>res<span class="token operator">==</span><span class="token number">1</span><span class="token punctuation">)</span>
-	<span class="token punctuation">{<!-- --></span>
-		<span class="token function">myfree</span><span class="token punctuation">(</span><span class="token constant">SRAMIN</span><span class="token punctuation">,</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-	<span class="token punctuation">}</span>
-	<span class="token function">delay_ms</span><span class="token punctuation">(</span><span class="token number">300</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token function">esp8266_send_cmd</span><span class="token punctuation">(</span><span class="token string">"AT+CIPMODE=1"</span><span class="token punctuation">,</span><span class="token string">"OK"</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">//传输模式为：透传	</span>
-<span class="token comment">//	atk_8266_get_wanip(ipbuf);//获取WAN IP</span>
-<span class="token comment">	</span>
-<span class="token comment">//	sprintf((char*)p,"IP地址:%s 端口:%s",ipbuf,(u8*)TIME_PORTNUM);</span>
-<span class="token comment">//	</span>
-<span class="token comment">//	//Show_Str(30,65,200,12,p,12,0);				//显示IP地址和端口	</span>
-<span class="token comment">//	 printf("设备 %s\r\n",p);</span>
-<span class="token comment">//	</span>
-<span class="token comment">//	USART3_RX_STA=0;</span>
-	<span class="token function">esp8266_send_cmd</span><span class="token punctuation">(</span><span class="token string">"AT+CIPSEND"</span><span class="token punctuation">,</span><span class="token string">"OK"</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">//开始透传</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"start trans...\r\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-	<span class="token function">u3_printf</span><span class="token punctuation">(</span><span class="token string">"GET /time15.asp HTTP/1.1Host:www.beijing-time.org\n\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-	<span class="token function">delay_ms</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//延时20ms返回的是指令发送成功的状态</span>
-	<span class="token constant">USART3_RX_STA</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>	<span class="token comment">//清零串口3数据</span>
-	<span class="token function">delay_ms</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token constant">USART3_RX_STA</span><span class="token operator">&amp;</span><span class="token number">0X8000</span><span class="token punctuation">)</span>		<span class="token comment">//此时再次接到一次数据，为天气的数据</span>
-	<span class="token punctuation">{<!-- --></span> 
-		<span class="token constant">USART3_RX_BUF</span><span class="token punctuation">[</span><span class="token constant">USART3_RX_STA</span><span class="token operator">&amp;</span><span class="token number">0X7FFF</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span><span class="token comment">//添加结束符</span>
-	<span class="token punctuation">}</span> 
+	sprintf((char*)p,"AT+CIPSTART=\"TCP\",\"%s\",%s",TIME_SERVERIP,TIME_PORTNUM);    //配置目标TCP服务器
+	printf("%s",p);
+	res = esp8266_send_cmd(p,"OK",200);//连接到目标TCP服务器
+	if(res==1)
+	{
+		myfree(SRAMIN,p);
+		return 1;
+	}
+	delay_ms(300);
+	esp8266_send_cmd("AT+CIPMODE=1","OK",100);      //传输模式为：透传	
+//	atk_8266_get_wanip(ipbuf);//获取WAN IP
 	
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"USART3_RX_BUF=%s\r\n"</span><span class="token punctuation">,</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	
-	<span class="token comment">//USART3_RX_BUF 为时间信息</span>
-	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token constant">USART3_RX_STA</span> <span class="token operator">&amp;</span> <span class="token number">0x8000</span><span class="token punctuation">)</span>
-	<span class="token punctuation">{<!-- --></span>
-			resp<span class="token operator">=</span><span class="token string">"Date"</span><span class="token punctuation">;</span>
-			<span class="token constant">USART3_RX_BUF</span><span class="token punctuation">[</span><span class="token constant">USART3_RX_STA</span> <span class="token operator">&amp;</span> <span class="token number">0x7ff</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-			<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"get_tim_srt：%s\r\n"</span><span class="token punctuation">,</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-			<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span>resp<span class="token punctuation">)</span><span class="token punctuation">)</span> 
-			<span class="token punctuation">{<!-- --></span>       
-				resp<span class="token operator">=</span><span class="token string">"GMT"</span><span class="token punctuation">;</span>
-				p_end <span class="token operator">=</span> <span class="token punctuation">(</span>u8<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span>resp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-				p <span class="token operator">=</span> p_end <span class="token operator">-</span> <span class="token number">9</span><span class="token punctuation">;</span> 
-				<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"get_net_str %s\r\n"</span><span class="token punctuation">,</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-				nwt<span class="token punctuation">.</span>hour <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>p <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">10</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>p<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">8</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">24</span><span class="token punctuation">;</span>  <span class="token comment">//GMT0--&gt;GMT8</span>
+//	sprintf((char*)p,"IP地址:%s 端口:%s",ipbuf,(u8*)TIME_PORTNUM);
+//	
+//	//Show_Str(30,65,200,12,p,12,0);				//显示IP地址和端口	
+//	 printf("设备 %s\r\n",p);
+//	
+//	USART3_RX_STA=0;
+	esp8266_send_cmd("AT+CIPSEND","OK",100);         //开始透传
+	printf("start trans...\r\n");
 
-				nwt<span class="token punctuation">.</span>min <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>p<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">10</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>p<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">60</span><span class="token punctuation">;</span>
+	u3_printf("GET /time15.asp HTTP/1.1Host:www.beijing-time.org\n\n");
 
-				nwt<span class="token punctuation">.</span>sec <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>p<span class="token operator">+</span><span class="token number">6</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">10</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>p<span class="token operator">+</span><span class="token number">7</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">60</span><span class="token punctuation">;</span>
+	delay_ms(20);//延时20ms返回的是指令发送成功的状态
+	USART3_RX_STA=0;	//清零串口3数据
+	delay_ms(1000);
+	if(USART3_RX_STA&0X8000)		//此时再次接到一次数据，为天气的数据
+	{ 
+		USART3_RX_BUF[USART3_RX_STA&0X7FFF]=0;//添加结束符
+	} 
+	
+	printf("USART3_RX_BUF=%s\r\n",USART3_RX_BUF);	
+	//USART3_RX_BUF 为时间信息
+	if(USART3_RX_STA & 0x8000)
+	{
+			resp="Date";
+			USART3_RX_BUF[USART3_RX_STA & 0x7ff] = 0;
+			printf("get_tim_srt：%s\r\n",USART3_RX_BUF);
+			if(strstr((char*)USART3_RX_BUF,(char*)resp)) 
+			{       
+				resp="GMT";
+				p_end = (u8*)strstr((char*)USART3_RX_BUF,(char*)resp);
+				p = p_end - 9; 
+				printf("get_net_str %s\r\n",p);
+				nwt.hour = ((*p - 0x30)*10 + (*(p+1) - 0x30) + 8) % 24;  //GMT0-->GMT8
 
-				nwt<span class="token punctuation">.</span>year <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>p<span class="token operator">-</span><span class="token number">5</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">1000</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>p<span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">100</span><span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>p<span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">10</span><span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>p<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+				nwt.min = ((*(p+3) - 0x30)*10 + (*(p+4) - 0x30)) % 60;
 
-				nwt<span class="token punctuation">.</span>date <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>p<span class="token operator">-</span><span class="token number">12</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">10</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>p<span class="token operator">-</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+				nwt.sec = ((*(p+6) - 0x30)*10 + (*(p+7) - 0x30)) % 60;
 
-				<span class="token keyword">if</span>        <span class="token punctuation">(</span><span class="token punctuation">(</span>u8<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token string">"Jan"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> nwt<span class="token punctuation">.</span>month<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> 
-				<span class="token keyword">else</span> <span class="token keyword">if</span>   <span class="token punctuation">(</span><span class="token punctuation">(</span>u8<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token string">"Feb"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> nwt<span class="token punctuation">.</span>month<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span> 
-				<span class="token keyword">else</span> <span class="token keyword">if</span>   <span class="token punctuation">(</span><span class="token punctuation">(</span>u8<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token string">"Mar"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> nwt<span class="token punctuation">.</span>month<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">;</span> 
-				<span class="token keyword">else</span> <span class="token keyword">if</span>   <span class="token punctuation">(</span><span class="token punctuation">(</span>u8<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token string">"Apr"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> nwt<span class="token punctuation">.</span>month<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">;</span> 
-				<span class="token keyword">else</span> <span class="token keyword">if</span>   <span class="token punctuation">(</span><span class="token punctuation">(</span>u8<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token string">"May"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> nwt<span class="token punctuation">.</span>month<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">;</span> 
-				<span class="token keyword">else</span> <span class="token keyword">if</span>   <span class="token punctuation">(</span><span class="token punctuation">(</span>u8<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token string">"Jun"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> nwt<span class="token punctuation">.</span>month<span class="token operator">=</span><span class="token number">6</span><span class="token punctuation">;</span> 
-				<span class="token keyword">else</span> <span class="token keyword">if</span>   <span class="token punctuation">(</span><span class="token punctuation">(</span>u8<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token string">"Jul"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> nwt<span class="token punctuation">.</span>month<span class="token operator">=</span><span class="token number">7</span><span class="token punctuation">;</span> 
-				<span class="token keyword">else</span> <span class="token keyword">if</span>   <span class="token punctuation">(</span><span class="token punctuation">(</span>u8<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token string">"Aug"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> nwt<span class="token punctuation">.</span>month<span class="token operator">=</span><span class="token number">8</span><span class="token punctuation">;</span> 
-				<span class="token keyword">else</span> <span class="token keyword">if</span>   <span class="token punctuation">(</span><span class="token punctuation">(</span>u8<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token string">"Sep"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> nwt<span class="token punctuation">.</span>month<span class="token operator">=</span><span class="token number">9</span><span class="token punctuation">;</span> 
-				<span class="token keyword">else</span> <span class="token keyword">if</span>   <span class="token punctuation">(</span><span class="token punctuation">(</span>u8<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token string">"Oct"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> nwt<span class="token punctuation">.</span>month<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">;</span> 
-				<span class="token keyword">else</span> <span class="token keyword">if</span>   <span class="token punctuation">(</span><span class="token punctuation">(</span>u8<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token string">"Nov"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> nwt<span class="token punctuation">.</span>month<span class="token operator">=</span><span class="token number">11</span><span class="token punctuation">;</span> 
-				<span class="token keyword">else</span> <span class="token keyword">if</span>   <span class="token punctuation">(</span><span class="token punctuation">(</span>u8<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">strstr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span><span class="token constant">USART3_RX_BUF</span><span class="token punctuation">,</span><span class="token punctuation">(</span>char<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token string">"Dec"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> nwt<span class="token punctuation">.</span>month<span class="token operator">=</span><span class="token number">12</span><span class="token punctuation">;</span>
+				nwt.year = ((*(p-5) - 0x30)*1000 + (*(p-4) - 0x30)*100+ (*(p-3) - 0x30)*10+ (*(p-2) - 0x30)); 
 
+				nwt.date = ((*(p-12) - 0x30)*10 + (*(p-11) - 0x30)); 
 
-				<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"nwt.year = %d\r\n"</span><span class="token punctuation">,</span>nwt<span class="token punctuation">.</span>year<span class="token punctuation">)</span><span class="token punctuation">;</span>
-				<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"nwt.month = %d\r\n"</span><span class="token punctuation">,</span>nwt<span class="token punctuation">.</span>month<span class="token punctuation">)</span><span class="token punctuation">;</span>
-				<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"nwt.date = %d\r\n"</span><span class="token punctuation">,</span>nwt<span class="token punctuation">.</span>date<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//获取data 28日</span>
-
-				<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"nwt.hour = %d\r\n"</span><span class="token punctuation">,</span>nwt<span class="token punctuation">.</span>hour<span class="token punctuation">)</span><span class="token punctuation">;</span>
-				<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"nwt.min = %d\r\n"</span><span class="token punctuation">,</span>nwt<span class="token punctuation">.</span>min<span class="token punctuation">)</span><span class="token punctuation">;</span>
-				<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"nwt.sec = %d\r\n"</span><span class="token punctuation">,</span>nwt<span class="token punctuation">.</span>sec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				if        ((u8*)strstr((char*)USART3_RX_BUF,(char*) "Jan")) nwt.month=1; 
+				else if   ((u8*)strstr((char*)USART3_RX_BUF,(char*) "Feb")) nwt.month=2; 
+				else if   ((u8*)strstr((char*)USART3_RX_BUF,(char*) "Mar")) nwt.month=3; 
+				else if   ((u8*)strstr((char*)USART3_RX_BUF,(char*) "Apr")) nwt.month=4; 
+				else if   ((u8*)strstr((char*)USART3_RX_BUF,(char*) "May")) nwt.month=5; 
+				else if   ((u8*)strstr((char*)USART3_RX_BUF,(char*) "Jun")) nwt.month=6; 
+				else if   ((u8*)strstr((char*)USART3_RX_BUF,(char*) "Jul")) nwt.month=7; 
+				else if   ((u8*)strstr((char*)USART3_RX_BUF,(char*) "Aug")) nwt.month=8; 
+				else if   ((u8*)strstr((char*)USART3_RX_BUF,(char*) "Sep")) nwt.month=9; 
+				else if   ((u8*)strstr((char*)USART3_RX_BUF,(char*) "Oct")) nwt.month=10; 
+				else if   ((u8*)strstr((char*)USART3_RX_BUF,(char*) "Nov")) nwt.month=11; 
+				else if   ((u8*)strstr((char*)USART3_RX_BUF,(char*) "Dec")) nwt.month=12;
 
 
+				printf("nwt.year = %d\r\n",nwt.year);
+				printf("nwt.month = %d\r\n",nwt.month);
+				printf("nwt.date = %d\r\n",nwt.date);  //获取data 28日
 
-				<span class="token constant">USART3_RX_STA</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+				printf("nwt.hour = %d\r\n",nwt.hour);
+				printf("nwt.min = %d\r\n",nwt.min);
+				printf("nwt.sec = %d\r\n",nwt.sec);
 
 
-				<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"uddate:nettime!!!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//				RTC_Set(nwt.year,nwt.month ,nwt.date ,nwt.hour ,nwt.min,nwt.sec);</span>
-		<span class="token punctuation">}</span>
-		<span class="token constant">USART3_RX_STA</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>																
-		<span class="token function">myfree</span><span class="token punctuation">(</span><span class="token constant">SRAMIN</span><span class="token punctuation">,</span>resp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token function">myfree</span><span class="token punctuation">(</span><span class="token constant">SRAMIN</span><span class="token punctuation">,</span>p_end<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+				USART3_RX_STA = 0;
+
+
+				printf("uddate:nettime!!!");
+//				RTC_Set(nwt.year,nwt.month ,nwt.date ,nwt.hour ,nwt.min,nwt.sec);
+		}
+		USART3_RX_STA = 0;																
+		myfree(SRAMIN,resp);
+		myfree(SRAMIN,p_end);
 																
 						
-    <span class="token punctuation">}</span>               
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\r\n\r\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token function">esp8266_quit_trans</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//退出透传</span>
-	<span class="token function">esp8266_send_cmd</span><span class="token punctuation">(</span><span class="token string">"AT+CIPCLOSE"</span><span class="token punctuation">,</span><span class="token string">"OK"</span><span class="token punctuation">,</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">//关闭连接</span>
-	<span class="token function">myfree</span><span class="token punctuation">(</span><span class="token constant">SRAMIN</span><span class="token punctuation">,</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<div class="hljs-button {2}" data-title="复制" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}"></div></code><div class="hide-preCode-box"><span data-report-view="{&quot;spm&quot;:&quot;1001.2101.3001.7365&quot;}"><img class="look-more-preCode contentImg-no-view" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCodeMoreWhite.png" alt="" title=""></span></div><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li><li style="color: rgb(153, 153, 153);">5</li><li style="color: rgb(153, 153, 153);">6</li><li style="color: rgb(153, 153, 153);">7</li><li style="color: rgb(153, 153, 153);">8</li><li style="color: rgb(153, 153, 153);">9</li><li style="color: rgb(153, 153, 153);">10</li><li style="color: rgb(153, 153, 153);">11</li><li style="color: rgb(153, 153, 153);">12</li><li style="color: rgb(153, 153, 153);">13</li><li style="color: rgb(153, 153, 153);">14</li><li style="color: rgb(153, 153, 153);">15</li><li style="color: rgb(153, 153, 153);">16</li><li style="color: rgb(153, 153, 153);">17</li><li style="color: rgb(153, 153, 153);">18</li><li style="color: rgb(153, 153, 153);">19</li><li style="color: rgb(153, 153, 153);">20</li><li style="color: rgb(153, 153, 153);">21</li><li style="color: rgb(153, 153, 153);">22</li><li style="color: rgb(153, 153, 153);">23</li><li style="color: rgb(153, 153, 153);">24</li><li style="color: rgb(153, 153, 153);">25</li><li style="color: rgb(153, 153, 153);">26</li><li style="color: rgb(153, 153, 153);">27</li><li style="color: rgb(153, 153, 153);">28</li><li style="color: rgb(153, 153, 153);">29</li><li style="color: rgb(153, 153, 153);">30</li><li style="color: rgb(153, 153, 153);">31</li><li style="color: rgb(153, 153, 153);">32</li><li style="color: rgb(153, 153, 153);">33</li><li style="color: rgb(153, 153, 153);">34</li><li style="color: rgb(153, 153, 153);">35</li><li style="color: rgb(153, 153, 153);">36</li><li style="color: rgb(153, 153, 153);">37</li><li style="color: rgb(153, 153, 153);">38</li><li style="color: rgb(153, 153, 153);">39</li><li style="color: rgb(153, 153, 153);">40</li><li style="color: rgb(153, 153, 153);">41</li><li style="color: rgb(153, 153, 153);">42</li><li style="color: rgb(153, 153, 153);">43</li><li style="color: rgb(153, 153, 153);">44</li><li style="color: rgb(153, 153, 153);">45</li><li style="color: rgb(153, 153, 153);">46</li><li style="color: rgb(153, 153, 153);">47</li><li style="color: rgb(153, 153, 153);">48</li><li style="color: rgb(153, 153, 153);">49</li><li style="color: rgb(153, 153, 153);">50</li><li style="color: rgb(153, 153, 153);">51</li><li style="color: rgb(153, 153, 153);">52</li><li style="color: rgb(153, 153, 153);">53</li><li style="color: rgb(153, 153, 153);">54</li><li style="color: rgb(153, 153, 153);">55</li><li style="color: rgb(153, 153, 153);">56</li><li style="color: rgb(153, 153, 153);">57</li><li style="color: rgb(153, 153, 153);">58</li><li style="color: rgb(153, 153, 153);">59</li><li style="color: rgb(153, 153, 153);">60</li><li style="color: rgb(153, 153, 153);">61</li><li style="color: rgb(153, 153, 153);">62</li><li style="color: rgb(153, 153, 153);">63</li><li style="color: rgb(153, 153, 153);">64</li><li style="color: rgb(153, 153, 153);">65</li><li style="color: rgb(153, 153, 153);">66</li><li style="color: rgb(153, 153, 153);">67</li><li style="color: rgb(153, 153, 153);">68</li><li style="color: rgb(153, 153, 153);">69</li><li style="color: rgb(153, 153, 153);">70</li><li style="color: rgb(153, 153, 153);">71</li><li style="color: rgb(153, 153, 153);">72</li><li style="color: rgb(153, 153, 153);">73</li><li style="color: rgb(153, 153, 153);">74</li><li style="color: rgb(153, 153, 153);">75</li><li style="color: rgb(153, 153, 153);">76</li><li style="color: rgb(153, 153, 153);">77</li><li style="color: rgb(153, 153, 153);">78</li><li style="color: rgb(153, 153, 153);">79</li><li style="color: rgb(153, 153, 153);">80</li><li style="color: rgb(153, 153, 153);">81</li><li style="color: rgb(153, 153, 153);">82</li><li style="color: rgb(153, 153, 153);">83</li><li style="color: rgb(153, 153, 153);">84</li><li style="color: rgb(153, 153, 153);">85</li><li style="color: rgb(153, 153, 153);">86</li><li style="color: rgb(153, 153, 153);">87</li><li style="color: rgb(153, 153, 153);">88</li><li style="color: rgb(153, 153, 153);">89</li><li style="color: rgb(153, 153, 153);">90</li><li style="color: rgb(153, 153, 153);">91</li><li style="color: rgb(153, 153, 153);">92</li><li style="color: rgb(153, 153, 153);">93</li><li style="color: rgb(153, 153, 153);">94</li><li style="color: rgb(153, 153, 153);">95</li><li style="color: rgb(153, 153, 153);">96</li><li style="color: rgb(153, 153, 153);">97</li><li style="color: rgb(153, 153, 153);">98</li><li style="color: rgb(153, 153, 153);">99</li><li style="color: rgb(153, 153, 153);">100</li><li style="color: rgb(153, 153, 153);">101</li><li style="color: rgb(153, 153, 153);">102</li><li style="color: rgb(153, 153, 153);">103</li><li style="color: rgb(153, 153, 153);">104</li><li style="color: rgb(153, 153, 153);">105</li><li style="color: rgb(153, 153, 153);">106</li><li style="color: rgb(153, 153, 153);">107</li><li style="color: rgb(153, 153, 153);">108</li><li style="color: rgb(153, 153, 153);">109</li><li style="color: rgb(153, 153, 153);">110</li><li style="color: rgb(153, 153, 153);">111</li><li style="color: rgb(153, 153, 153);">112</li><li style="color: rgb(153, 153, 153);">113</li><li style="color: rgb(153, 153, 153);">114</li><li style="color: rgb(153, 153, 153);">115</li></ul></pre> 
-<h2><a name="t8" one-link-mark="yes"></a><a id="53_170" one-link-mark="yes"></a>5.3、项目代码逻辑</h2> 
+    }               
+	printf("\r\n\r\n");
+	esp8266_quit_trans();//退出透传
+	esp8266_send_cmd("AT+CIPCLOSE","OK",50);         //关闭连接
+	myfree(SRAMIN,p);
+	return 0;
+}
+
+```
+
+5.3、项目代码逻辑</h2> 
 <p>基本的代码已经介绍完了，其他的操作就是调用这些函数实现功能而已，这边就不全部列出来了，感觉没什么意义。我把我的代码的逻辑分享一下吧，具体代码我会附在文末，大家可以详细看看。<br> <strong>初始化函数-&gt;OLED显示状态-&gt;通过ESP8266获取数据-&gt;OLED状态更新<br> 按键按下触发中断-&gt;通过ESP8266获取数据-&gt;OLED状态更新<br> 定时器触发-&gt;sec秒数自增</strong></p> 
 <h1><a name="t9" one-link-mark="yes"></a><a id="6_177" one-link-mark="yes"></a>6、运行结果</h1> 
 <p>设备上电后，等待ESP8266初始化，获取数据后进行解析，将状态显示到OLED屏幕上。当按下按键后，会重新获取，更新天气数据。<br> <img src="https://img-blog.csdnimg.cn/20210605154524234.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p> 
 <h1><a name="t10" one-link-mark="yes"></a><a id="7_181" one-link-mark="yes"></a>7、源程序</h1> 
 <h2><a name="t11" one-link-mark="yes"></a><a id="71_182" one-link-mark="yes"></a>7.1、百度网盘</h2> 
 <p>链接：<a href="https://pan.baidu.com/s/1m16EzF6AS_jB2YBGIOxtNQ" one-link-mark="yes"><span class="one-pan-tip one-pan-tip-lock" one-id="m16EzF6AS_jB2YBGIOxtNQ" one-source="baidu" one-tip-mark="yes">https://pan.baidu.com/s/1m16EzF6AS_jB2YBGIOxtNQ</span> </a><br> 提取码：w7i2</p> 
-<h2><a name="t12" one-link-mark="yes"></a><a id="72Github_185" one-link-mark="yes"></a>7.2、<a href="https://so.csdn.net/so/search?q=Github&amp;spm=1001.2101.3001.7020" target="_blank" class="hl hl-1" data-report-view="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=Github&amp;spm=1001.2101.3001.7020&quot;}" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=Github&amp;spm=1001.2101.3001.7020&quot;}" one-link-mark="yes">Github</a>地址</h2> 
-<p><a href="https://github.com/18813867405/stm32-ESP8266" one-link-mark="yes">Github地址</a></p> 
-<p>传送门：<br> <a href="https://blog.csdn.net/ethan_33/article/details/117330349" one-link-mark="yes">基于STM32的ESP8266天气时钟(1)---------AT指令获取天气数据</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117398233" one-link-mark="yes">基于STM32的ESP8266天气时钟(2)--------MCU获取天气数据</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117451219" one-link-mark="yes">基于STM32的ESP8266天气时钟(3)--------MCU数据处理及显示</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117596614" one-link-mark="yes">基于STM32F的ESP8266天气时钟(4)--------MCU获取时间及显示（完结）</a></p>
-                </div><div data-report-view="{&quot;mod&quot;:&quot;1585297308_001&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6548&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/ethan_33/article/details/117596614&quot;,&quot;extend1&quot;:&quot;pc&quot;,&quot;ab&quot;:&quot;new&quot;}"><div></div></div>
-                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-89f5acb30b.css" rel="stylesheet">
-                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-49037e4d27.css" rel="stylesheet">
-        </div>
-        
-    </article>
+
