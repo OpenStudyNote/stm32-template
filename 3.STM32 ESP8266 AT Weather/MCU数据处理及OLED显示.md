@@ -142,7 +142,7 @@ cJSON *cJSON_GetArrayItem(cJSON *array,int item);
 返回值：这个数组中指定下标的对象。然后在对这个返回值重复使用第二步函数就可以获取到各个成员的值了。也就是说对象是数组的比是字符串的要多用一个cJSON_GetArrayItem函数，其他的没区别。
 cJSON_Delete() 用来释放你第一步获取的句柄，来释放整个内存。用在解析完后调用。
 ### 解析数据包
-```
+```c
 /*********************************************************************************
 * Function Name    ： cJSON_WeatherParse,解析天气数据
 * Parameter		   ： JSON：天气数据包  results：保存解析后得到的有用的数据
