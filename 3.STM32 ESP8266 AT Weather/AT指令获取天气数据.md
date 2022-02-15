@@ -1,11 +1,4 @@
-<article class="baidu_pl">
-        <div id="article_content" class="article_content clearfix">
-        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-d7093e7f7c.css">
-                <div id="content_views" class="markdown_views prism-atom-one-dark">
-                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
-                    </svg>
-                    <p>前言：<br> 很久以前就想着能够做一个可以显示天气还有时间的小东西，刚好最近有空，研究了一下，发现并没有之前想象的那么难，网上也有很多资料，不过大部分并没有一步一步详细介绍，故把自己的学习过程分享出来，算是自己的输出，也给需要学习的小伙伴提供一下思路。<br> 如果有错误或者是大伙儿有更好的代码写法，欢迎沟通交流！！！</p> 
+<p>前言：<br> 很久以前就想着能够做一个可以显示天气还有时间的小东西，刚好最近有空，研究了一下，发现并没有之前想象的那么难，网上也有很多资料，不过大部分并没有一步一步详细介绍，故把自己的学习过程分享出来，算是自己的输出，也给需要学习的小伙伴提供一下思路。<br> 如果有错误或者是大伙儿有更好的代码写法，欢迎沟通交流！！！</p> 
 <p></p>
 <div class="toc">
  <h3><a name="t0" one-link-mark="yes"></a>文章目录</h3>
@@ -89,9 +82,6 @@
 <p>这里的location可以改为自己的城市，我的是深圳（shenzhen）<br> 私钥为心知天气中获取到的私钥<br> 语言language用的是中文（zh-Hans），这部分可以自行到心知天气官网的文档查看<br> <img src="https://img-blog.csdnimg.cn/20210529151334181.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2V0aGFuXzMz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 接收成功，因为编码方式不同所以会有乱码，不过不影响，后面我们写代码会处理这些数据。<br> 通过接收到的数据，我们可以查看到我当前的天气为26摄氏度。<br> 实验成功！</p> 
 <p>传送门：</p> 
 <p><a href="https://blog.csdn.net/ethan_33/article/details/117330349" one-link-mark="yes">基于STM32的ESP8266天气时钟(1)---------AT指令获取天气数据</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117398233" one-link-mark="yes">基于STM32的ESP8266天气时钟(2)--------MCU获取天气数据</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117451219" one-link-mark="yes">基于STM32的ESP8266天气时钟(3)--------MCU数据处理及显示</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117596614" one-link-mark="yes">基于STM32F的ESP8266天气时钟(4)--------MCU获取时间及显示（完结）</a></p>
-                </div><div data-report-view="{&quot;mod&quot;:&quot;1585297308_001&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6548&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/ethan_33/article/details/117330349&quot;,&quot;extend1&quot;:&quot;pc&quot;,&quot;ab&quot;:&quot;new&quot;}"><div></div></div>
-                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-89f5acb30b.css" rel="stylesheet">
-                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-49037e4d27.css" rel="stylesheet">
-        </div>
+    
         
-    </article>
+   
