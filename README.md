@@ -73,3 +73,6 @@ Hardware 使用情况
 4.2022.2.10 移植机智云配网到STM32F4
 ![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/1.png)
 ![](https://gitee.com/lemonhubchat/blog-image/raw/master/img/2.png)
+
+5.STM32 ESP8266 AT Weather (转载CSDN博主文章方便学习)
+<p><a href="https://blog.csdn.net/ethan_33/article/details/117330349" one-link-mark="yes">基于STM32的ESP8266天气时钟(1)---------AT指令获取天气数据</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117398233" one-link-mark="yes">基于STM32的ESP8266天气时钟(2)--------MCU获取天气数据</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117451219" one-link-mark="yes">基于STM32的ESP8266天气时钟(3)--------MCU数据处理及显示</a><br> <a href="https://blog.csdn.net/ethan_33/article/details/117596614" one-link-mark="yes">基于STM32F的ESP8266天气时钟(4)--------MCU获取时间及显示（完结）</a></p>
