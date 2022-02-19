@@ -47,6 +47,9 @@ Hardware 使用情况
 5.  蜂鸣器 BEEP
 6.  LCD功能函数配置成功  数据，图片，汉字，字符串等显示
 7.  机智云配网 使用TIMER3 USART3 配置成功
+8.  移植 OLED 0.96 软件IIC
+9.  移植U8g2 OLED 图形库
+
 
 
 
