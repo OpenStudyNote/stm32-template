@@ -2,8 +2,8 @@
 
 
 ### 效果
-![](https://gitee.com/delehubcode/blog-image/raw/master/img/u8g2_2.jpg)
-![](https://gitee.com/delehubcode/blog-image/raw/master/img/u8g2_4.jpg)
-![](https://gitee.com/delehubcode/blog-image/raw/master/img/u8g2_3.jpg)
-![](https://gitee.com/delehubcode/blog-image/raw/master/img/u8g2_5.jpg)
-![](https://gitee.com/delehubcode/blog-image/raw/master/img/u8g2_1.jpg)
+![](https://gitee.com/delehubcode/blog-image/raw/master/img/u8_1.png)
+![](https://gitee.com/delehubcode/blog-image/raw/master/img/u8_2.png)
+![](https://gitee.com/delehubcode/blog-image/raw/master/img/u8_3.png)
+![](https://gitee.com/delehubcode/blog-image/raw/master/img/u8_4.png)
+![](https://gitee.com/delehubcode/blog-image/raw/master/img/u8_5.png)
